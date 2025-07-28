@@ -2,7 +2,7 @@
 
 A simple Content Management System (CMS) API built with Node.js, Express, and MySQL. Supports CRUD operations on articles, with AI-powered slug and summary generation.
 
----
+
 
 ## Features
 
@@ -12,7 +12,6 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 - MySQL database support
 - Docker-ready
 
----
 
 ## Tech Stack
 
@@ -23,7 +22,7 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 - Docker 
 - OpenAI API
 
----
+
 
 ## Project Structure
 
@@ -128,6 +127,6 @@ Slug and summary are auto-generated using OpenAI based on the article content.
 Configure your OPENAI_API_KEY in .env to use this feature.
 
 
----
+
 ## Thank you!
----
+
