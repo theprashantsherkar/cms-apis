@@ -47,3 +47,32 @@ export const createArticle = async (req, res) => {
   });
 };
 
+
+export const updateArticle = async (req, res) => {
+  const articleId = req.params.id;
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ message: 'Title and content are required' });
+  }
+
+  try {
+    // Optional AI step
+    const { slug, summary } = await generateSlugAndSummary(title, content);
+
+    const [result] = await db.execute(
+      `UPDATE articles SET title = ?, slug = ?, summary = ?, content = ? WHERE id = ?`,
+      [title, slug, summary, content, articleId]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Article not found' });
+    }
+
+    res.json({ message: 'Article updated successfully' });
+  } catch (err) {
+    console.error('Update Error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
