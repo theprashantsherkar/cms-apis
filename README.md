@@ -19,9 +19,9 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 - Node.js
 - Express.js
 - MySQL
-- Prisma (optional)
-- Docker (optional)
-- OpenAI API (optional)
+- Prisma 
+- Docker 
+- OpenAI API
 
 ---
 
@@ -45,23 +45,20 @@ cms-apis/
 ## 🔧 Setup Instructions
 
 ### 1. Clone the repository
-bash
-git clone https://github.com/your-username/cms-apis.git
+git clone https://github.com/your-username/cms-apis.git \n
 cd cms-apis
 
 ### 2. Install dependencies
-bash
-Copy
-Edit
 npm install
+
 ### 3. Configure environment variables
-Create a .env file:
+Create a .env file:\n
 
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=cms
-OPENAI_API_KEY=your_openai_key  # optional
+OPENAI_API_KEY=your_openai_key 
 
 ### 4. Set up the MySQL database
 Run the SQL script or manually create the table:
@@ -119,4 +116,6 @@ Slug and summary are auto-generated using OpenAI based on the article content.
 Configure your OPENAI_API_KEY in .env to use this feature.
 
 
--- Thank you!
+---
+## Thank you!
+---
