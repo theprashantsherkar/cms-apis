@@ -1,4 +1,4 @@
-// data/models/index.js
+
 import { Sequelize } from "sequelize";
 import fs from "fs";
 import path from "path";
@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const basename = path.basename(__filename);
 const db = {};
 
-// Adjust this based on your config location
+
 import configFile from "../config/config.cjs";
 const env = process.env.NODE_ENV || "development";
 const config = configFile[env];
