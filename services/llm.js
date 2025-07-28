@@ -1,35 +1,33 @@
-import { OpenAi } from "openapi";
-import dotenv from "dotenv";
 
-const openai = new OpenAi({
-  apiKey: process.env.OPENAI_API_KEY,
+import { OpenAI } from "openai"; 
+const openai = new OpenAI({
+  apiKey:
+    process.env.OPENAI_API_KEY ||
+    "REMOVED",
 });
 
-export async function generateSlug(title, content) {
-  const prompt = `Generate a concise and SEO-friendly slug for the following title and content:\n\nTitle: ${title}\nContent: ${content}\n\nSlug:`;
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "user", content: prompt }],
-    });
-    return response.choices[0].message.content
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "-");
-  } catch (error) {
-    console.error("Error generating slug:", error);
-  }
-}
+export const generateSlug = async (title, content) => {
+  const prompt = `Generate a short, URL-friendly slug for this article based on its title and content.\n\nTitle: ${title}\n\nContent: ${content}\n\nSlug:`;
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [{ role: "user", content: prompt }],
+  });
 
-export async function generateSummary(content) {
-  const prompt = `Summarize this article content in 2–3 sentences:\n${content}`;
-  try {
-    const res = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "user", content: prompt }],
-    });
-    return res.choices[0].message.content.trim();
-  } catch (error) {
-    console.error("Error generating summary:", error);
-  }
-}
+  let slug = response.choices[0].message.content.trim();
+  slug = slug
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
+
+  return slug;
+};
+
+export const generateSummary = async (title, content) => {
+  const prompt = `Write a short 2–3 sentence summary for the following article.\n\nTitle: ${title}\n\nContent:\n${content}\n\nSummary:`;
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  return response.choices[0].message.content.trim();
+};

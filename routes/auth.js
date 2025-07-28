@@ -11,10 +11,10 @@ import {
 
 const router = express.Router();
 
-router.post('/register', registerAPI)
-router.post('/banker/login', loginAPI);
-router.get('/logout', isAuthenticated, logoutAPI)
-router.get('/user', isAuthenticated, getUserAPI)
+router.post('/register', registerAPI);
+router.post('/login', loginAPI);
+router.get('/logout', isAuthenticated, logoutAPI);
+router.get('/user', isAuthenticated, getUserAPI);
 router.put('/changePassword', isAuthenticated, changePasswordAPI);
 
 export default router;

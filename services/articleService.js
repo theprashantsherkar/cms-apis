@@ -1,18 +1,18 @@
 // services/articleService.js
-import Article from '../models/article.js' // Adjust the path if needed
+import prisma from "../data/prisma/prismaClient.js"; // adjust path to your Prisma client
 
-export async function updateArticleSlug(articleId, slug) {
-  try {
-    const article = await Article.findByPk(articleId);
-    if (!article) throw new Error("Article not found");
 
-    article.slug = slug;
-    await article.save();
 
-    return article;
-  } catch (err) {
-    console.error("Error updating article slug:", err);
-    throw err;
-  }
-}
+export const updateArticleSlug = async (articleId, slug) => {
+  return await prisma.article.update({
+    where: { id: articleId },
+    data: { slug },
+  });
+};
 
+export const updateArticleSummary = async (articleId, summary) => {
+  return await prisma.article.update({
+    where: { id: articleId },
+    data: { summary },
+  });
+};

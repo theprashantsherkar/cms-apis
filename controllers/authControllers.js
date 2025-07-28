@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import db from '../data/database';
+import db from '../data/database.js';
 
 
 
 export const registerAPI = async (req, res) => {
-    const { username, email, role, password } = req.body;
-    if (!username | !email | !role | !password)
+    const { name, email, role, password } = req.body;
+    if (!name | !email | !role | !password)
     {
         return res.status(400).json({
             message: "Please fill all the fields"
@@ -15,8 +15,8 @@ export const registerAPI = async (req, res) => {
 
     const hashedPass = await bcrypt.hash(password, 10);
 
-    const sql = `INSERT INTO users (username, email, userRole, password) VALUES (?, ?, ?, ?)`;
-    const values = [username, email, role, hashedPass];
+    const sql = `INSERT INTO Users (name, email, role, password) VALUES (?, ?, ?, ?)`;
+    const values = [name, email, role, hashedPass];
     const isRegistered = await db.query(sql, values);
     if (isRegistered.affectedRows === 0)
     {
@@ -47,7 +47,7 @@ export const loginAPI = async (req, res) => {
         })
     }
 
-    const sql = `SELECT * FROM users WHERE email = ?`;
+    const sql = `SELECT * FROM Users WHERE email = ?`;
     const values = [email];
     const [rows] = await db.query(sql, values);
 
@@ -66,14 +66,6 @@ export const loginAPI = async (req, res) => {
         return res.status(400).json({
             success: false,
             message: "Invalid credentials"
-        })
-    }
-
-    if (user.userRole !== "banker")
-    {
-        return res.status(400).json({
-            success: false,
-            message: "You are not a banker"
         })
     }
 
@@ -108,7 +100,7 @@ export const getUserAPI = async (req, res) => {
         })
     }
 
-    const sql = `SELECT * FROM users WHERE id = ?`;
+    const sql = `SELECT * FROM Users WHERE id = ?`;
     const values = [id];
     const [rows] = await db.query(sql, values);
     if (rows.length === 0)
@@ -128,9 +120,9 @@ export const getUserAPI = async (req, res) => {
         success: true,
         user: {
             id: user.id,
-            username: user.username,
+            username: user.name,
             email: user.email,
-            role: user.userRole
+            role: user.role
         }
     })
 }
@@ -142,7 +134,7 @@ export const changePasswordAPI = async (req, res) => {
     {
         return res.status(401).json({
             message: "User not authenticated"
-        })
+        });
     }
 
     if (!oldPassword | !newPassword | !confirmPassword)
@@ -157,7 +149,7 @@ export const changePasswordAPI = async (req, res) => {
             message: "Passwords do not match"
         })
     }
-    const sql = `SELECT * from users WHERE id = ?`
+    const sql = `SELECT * from Users WHERE id = ?`
     const values = [user.id];
     const [rows] = await db.query(sql, values);
 
@@ -179,7 +171,7 @@ export const changePasswordAPI = async (req, res) => {
         })
     }
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-    const sql2 = `UPDATE users SET password = ? WHERE id = ?`;
+    const sql2 = `UPDATE Users SET password = ? WHERE id = ?`;
     const values2 = [hashedNewPassword, user.id];
     await db.query(sql2, values2);
 

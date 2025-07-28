@@ -7,3 +7,4 @@ new Worker("slug-queue", async (job) => {
   const slug = await generateSlug(title, content);
   await updateArticleSlug(articleId, slug);
 });
+ 
