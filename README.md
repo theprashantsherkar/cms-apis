@@ -4,7 +4,7 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 
 ---
 
-## 🚀 Features
+## Features
 
 - Create, Read, Update, Delete (CRUD) articles
 - AI-generated slugs and summaries using OpenAI (optional)
@@ -14,7 +14,7 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - Node.js
 - Express.js
@@ -25,34 +25,46 @@ A simple Content Management System (CMS) API built with Node.js, Express, and My
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 cms-apis/
+
 ├── routes/
+
 │ └── articles.js # Article API routes
+
 ├── utils/
+
 │ └── aiHelper.js # AI slug & summary generator
+
 ├── config/
+
 │ └── db.js # MySQL DB connection config
+
 ├── app.js # Express app setup
+
 ├── server.js # Entry point
+
 ├── Dockerfile # Docker container config
+
 ├── package.json
+
 └── README.md
 
 ---
 
-## 🔧 Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the repository
-git clone https://github.com/your-username/cms-apis.git \n
+git clone https://github.com/your-username/cms-apis.git
+
 cd cms-apis
 
 ### 2. Install dependencies
 npm install
 
 ### 3. Configure environment variables
-Create a .env file:\n
+Create a .env file:
 
 DB_HOST=localhost
 DB_USER=root
@@ -82,7 +94,7 @@ CREATE TABLE articles (
 npm start
 Server runs on http://localhost:5000.
 
-## 🐳 Run with Docker (optional)
+## Run with Docker (optional)
 ### 1. Build the image
 
 docker build -t cms-api .
@@ -110,7 +122,7 @@ Update an article by ID
 DELETE /articles/:id
 Delete an article by ID
 
-## 🧠 AI Features
+## AI Features
 Slug and summary are auto-generated using OpenAI based on the article content.
 
 Configure your OPENAI_API_KEY in .env to use this feature.
